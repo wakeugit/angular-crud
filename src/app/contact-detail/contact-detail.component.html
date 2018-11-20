@@ -1,0 +1,8 @@
+<div style="width:100%" *ngIf="contact$ | async as contact">
+  <div class="formDetail">
+    <h2>
+      {{contact.name}}'s Details
+    </h2>
+    <app-contact-form [contact]="contact"></app-contact-form>
+  </div>
+</div>

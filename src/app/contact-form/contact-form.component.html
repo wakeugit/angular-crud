@@ -1,0 +1,45 @@
+<form (ngOnSubmit)="submitContact()" [formGroup]="contactForm" class="example-form">
+  <mat-form-field>
+    <input matInput placeholder="Name" formControlName="name">
+    <mat-error *ngIf="contactForm.get('name').hasError('required')">
+      Name is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <span matPrefix>+49 &nbsp;</span>
+    <input type="tel" matInput placeholder="Telephone" formControlName="phone">
+    <mat-error *ngIf="contactForm.get('phone').hasError('pattern')">
+      Please enter a valid Phone number
+    </mat-error>
+    <mat-error *ngIf="contactForm.get('phone').hasError('required')">
+      Phone number is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Email" formControlName="email">
+    <mat-error *ngIf="contactForm.get('email').hasError('email')">
+      Please enter a valid email address
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Birthday" formControlName="birthday">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <div class="button-row">
+    <div *ngIf="mode == 'create'">
+      <button mat-raised-button color="primary" (click)="submitContact()">Create</button>
+    </div>
+    <div *ngIf="mode !== 'create'">
+      <button mat-raised-button color="accent" (click)="updateContact()">Update</button>
+      <button mat-raised-button color="warn" (click)="deleteContact(contact.id)">Delete</button>
+      <button mat-raised-button routerLink="/list">Back to List</button>
+    </div>
+
+
+  </div>
+</form>
