@@ -1,6 +1,6 @@
 import { ContactService } from './../services/contacts/contact.service';
 import { Contact } from './../models/contact';
-import { Component, OnInit, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { switchMap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
@@ -16,8 +16,7 @@ export class ContactSearchComponent implements OnInit {
   searchItems = new Subject<string>();
   contacts$: Observable<Contact[]>;
 
-  search(item: string):void{
-    console.log("searching ...")
+  search(item: string): void {
     this.searchItems.next(item);
   }
 
@@ -30,13 +29,15 @@ export class ContactSearchComponent implements OnInit {
       distinctUntilChanged(),
 
       switchMap(
-        (term: string) => this._contactService.searchContacts(term)
-          /*console.log("switchMap searching ...")
-          this.updateList.emit(this._contactService.searchContacts(term));
-          return this._contactService.searchContacts(term)*/
-        
+        (term: string) => {
+          let list$: Observable<Contact[]> = this._contactService.searchContacts(term);
+          this.updateList.emit(list$);
+          return list$
+        }
       ),
     );
+
+    this.contacts$.subscribe()
   }
 
 }

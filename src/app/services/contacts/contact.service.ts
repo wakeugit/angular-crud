@@ -71,7 +71,5 @@ export class ContactService {
         error => console.log("error by searching contact "+error))
     )
   }
-
- 
   constructor(private http: HttpClient) { }
 }

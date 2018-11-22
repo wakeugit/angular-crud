@@ -1,8 +1,8 @@
 import { ContactModalComponent } from './../contact-modal/contact-modal.component';
 import { Observable } from 'rxjs';
-import { Component, OnInit, } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Contact } from '../models/contact';
-import { PageEvent, MatDialog } from '@angular/material';
+import { PageEvent, MatDialog, MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { Router } from '@angular/router';
 import { ContactService } from '../services/contacts/contact.service';
 
@@ -16,33 +16,48 @@ export class ContactListComponent implements OnInit {
 
   contact: Contact;
   favoriteContact: Contact;
-  contacts : Contact[];
+  contacts: Contact[] = [];
+  contacts$: Observable<Contact[]>;
+
   displayedColumns: string[] = ['name', 'phone', 'email', 'birthday'];
 
-  // MatPaginator Inputs
-  //length = this.contacts$.;
-  length = 20;
-  length_page = 10;
-  pageSize = this.length % this.length_page + 1;
+  dataSource: MatTableDataSource<Contact>;
 
-
-  pageSizeOptions: number[] = [5, 10, this.length];
-
-  // MatPaginator Output
-  pageEvent: PageEvent;
-
-  //@ViewChild(MatPaginator) paginator: MatPaginator;
-
-  contacts$ : Observable<Contact[]>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private _router: Router, 
+    private _router: Router,
     private _contactService: ContactService,
-    public dialog: MatDialog) {  }
+    public dialog: MatDialog) {
+      this.dataSource = new MatTableDataSource(this.contacts);
+  }
 
   ngOnInit() {
     //this.getContacts();
     this.contacts$ = this._contactService.getContacts();
+    this.contacts$.subscribe(
+      data => {
+        this.contacts = data;
+        // Assign the data to the data source for the table to render
+        this.dataSource = new MatTableDataSource(this.contacts);
+      }
+    )
+  }
+
+  /**
+   * Set the paginator and sort after the view init since this component will
+   * be able to query its view for the initialized paginator and sort.
+   */
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
   }
 
   onClick(contact: Contact): void {
@@ -55,7 +70,7 @@ export class ContactListComponent implements OnInit {
     )
   }
 
-  updateList(contacts$ : Observable<Contact[]>){
+  updateList(contacts$: Observable<Contact[]>) {
     this.contacts$ = contacts$;
   }
 
