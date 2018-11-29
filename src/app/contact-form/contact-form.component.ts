@@ -1,3 +1,5 @@
+import { Country } from './../models/country';
+import { CountryService } from './../services/countries/country.service';
 import { Router } from '@angular/router';
 import { Contact } from '../models/contact';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -18,7 +20,10 @@ export class ContactFormComponent implements OnInit {
 
   contactForm: FormGroup;
 
-  constructor(private _router: Router, private _contactService: ContactService) { }
+  countries: Country[] = [];
+  telPrefix: number;
+
+  constructor(private _router: Router, private _contactService: ContactService, private _countryService: CountryService) { }
 
   ngOnInit() {
     this.initForm(this.contact);
@@ -26,10 +31,24 @@ export class ContactFormComponent implements OnInit {
 
   initForm(contact: Contact) {
 
+    this._countryService.getCountries()
+      .subscribe(countries => {
+        this.countries = countries
+        let filteredCountries: Country[];
+        filteredCountries = this.countries.filter(country => contact.countryId == country.id);
+        if (filteredCountries.length > 0) {
+          this.telPrefix = filteredCountries[0].code;
+        }
+      })
+
+
     this.contactForm = new FormGroup(
       {
         name: new FormControl(contact == null ? '' : contact.name, [
           Validators.required
+        ]),
+        countryId: new FormControl(contact == null ? '' : contact.countryId, [
+          Validators.required,
         ]),
         phone: new FormControl(contact == null ? '' : contact.phone, [
           Validators.required,
@@ -47,6 +66,7 @@ export class ContactFormComponent implements OnInit {
 
     let contact = new Contact(
       this.contactForm.value.name,
+      this.contactForm.value.countryId,
       this.contactForm.value.phone,
       this.contactForm.value.email,
       new Date(this.contactForm.value.birthday)
@@ -56,7 +76,6 @@ export class ContactFormComponent implements OnInit {
       contact => {
         this.contactForm.reset();
         this.newContact.emit(contact);
-        console.log("Success");
         return contact
       },
       err => { console.log(err); return err }
@@ -67,6 +86,7 @@ export class ContactFormComponent implements OnInit {
 
     let contact = new Contact(
       this.contactForm.value.name,
+      this.contactForm.value.countryId,
       this.contactForm.value.phone,
       this.contactForm.value.email,
       new Date(this.contactForm.value.birthday)
@@ -76,8 +96,7 @@ export class ContactFormComponent implements OnInit {
     this._contactService.updateContact(contact).subscribe(
       contact => {
         this.contactForm.reset();
-        console.log("Success Update");
-        this._router.navigate(['/list'])
+        this._router.navigate(['/list']);
         return contact
       },
       err => { console.log(err); return err }

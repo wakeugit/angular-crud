@@ -1,3 +1,4 @@
+import { CountryPipe } from './utils/country.pipe';
 import { InMemoryDataService } from './services/InMemoryData/in-memory-data.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -20,6 +21,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { ContactModalComponent } from './contact-modal/contact-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSortModule } from '@angular/material/sort';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     ContactDetailComponent,
     ContactSearchComponent,
     ContactFormComponent,
-    ContactModalComponent
+    ContactModalComponent,
+    CountryPipe
   ],
   imports: [
     BrowserModule,
@@ -36,6 +40,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatTableModule,
     MatButtonModule,
     MatPaginatorModule,
+    MatSortModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
@@ -44,6 +49,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDatepickerModule,
     MatNativeDateModule,
     MatDialogModule,
+    MatSelectModule,
     HttpClientModule,
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.

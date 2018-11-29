@@ -1,3 +1,5 @@
+import { CountryService } from './../services/countries/country.service';
+import { Country } from './../models/country';
 import { ContactModalComponent } from './../contact-modal/contact-modal.component';
 import { Observable } from 'rxjs';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -19,16 +21,19 @@ export class ContactListComponent implements OnInit {
   contacts: Contact[] = [];
   contacts$: Observable<Contact[]>;
 
-  displayedColumns: string[] = ['name', 'phone', 'email', 'birthday'];
+  displayedColumns: string[] = ['name', 'country', 'phone', 'email', 'birthday'];
 
   dataSource: MatTableDataSource<Contact>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  countries: Country[] = [];
+
   constructor(
     private _router: Router,
     private _contactService: ContactService,
+    private _countryService: CountryService,
     public dialog: MatDialog) {  }
 
   ngOnInit() {
@@ -42,6 +47,11 @@ export class ContactListComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }
+    )
+    
+    // init countries
+    this._countryService.getCountries().subscribe(
+      countries => this.countries = countries
     )
   }
 
