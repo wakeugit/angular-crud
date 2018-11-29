@@ -24,6 +24,8 @@ import { ContactModalComponent } from './contact-modal/contact-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FeedbackComponent } from './feedback/feedback.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import { MatSelectModule } from '@angular/material/select';
     ContactModalComponent,
     CountryNamePipe,
     CountryCodePipe,
+    FeedbackComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,6 +55,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatNativeDateModule,
     MatDialogModule,
     MatSelectModule,
+    MatSnackBarModule,
     HttpClientModule,
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
@@ -62,7 +66,7 @@ import { MatSelectModule } from '@angular/material/select';
     AppRoutingModule
   ],
   providers: [],
-  entryComponents: [ContactModalComponent],
+  entryComponents: [ContactModalComponent, FeedbackComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

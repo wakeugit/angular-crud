@@ -1,3 +1,4 @@
+import { FeedbackComponent } from './../feedback/feedback.component';
 import { Country } from './../models/country';
 import { CountryService } from './../services/countries/country.service';
 import { Router } from '@angular/router';
@@ -5,6 +6,7 @@ import { Contact } from '../models/contact';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ContactService } from '../services/contacts/contact.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-contact-form',
@@ -23,7 +25,14 @@ export class ContactFormComponent implements OnInit {
   countries: Country[] = [];
   telPrefix: number;
 
-  constructor(private _router: Router, private _contactService: ContactService, private _countryService: CountryService) { }
+  constructor(private _router: Router, private _contactService: ContactService, private _countryService: CountryService, public snackBar: MatSnackBar) { }
+
+  openSnackBar(data: any) {
+    this.snackBar.openFromComponent(FeedbackComponent, {
+      duration: 3000,
+      data: data
+    });
+  }
 
   ngOnInit() {
     this.initForm(this.contact);
@@ -35,9 +44,11 @@ export class ContactFormComponent implements OnInit {
       .subscribe(countries => {
         this.countries = countries
         let filteredCountries: Country[];
-        filteredCountries = this.countries.filter(country => contact.countryId == country.id);
-        if (filteredCountries.length > 0) {
-          this.telPrefix = filteredCountries[0].code;
+        if (contact) {
+          filteredCountries = this.countries.filter(country => contact.countryId == country.id);
+          if (filteredCountries.length > 0) {
+            this.telPrefix = filteredCountries[0].code;
+          }
         }
       })
 
@@ -62,12 +73,12 @@ export class ContactFormComponent implements OnInit {
     );
   }
 
-  onCountryChange(){
+  onCountryChange() {
     let filteredCountries: Country[];
-        filteredCountries = this.countries.filter(country => this.contactForm.value.countryId == country.id);
-        if (filteredCountries.length > 0) {
-          this.telPrefix = filteredCountries[0].code;
-        }
+    filteredCountries = this.countries.filter(country => this.contactForm.value.countryId == country.id);
+    if (filteredCountries.length > 0) {
+      this.telPrefix = filteredCountries[0].code;
+    }
   }
 
   submitContact(): void {
@@ -84,9 +95,22 @@ export class ContactFormComponent implements OnInit {
       contact => {
         this.contactForm.reset();
         this.newContact.emit(contact);
+        let data = {
+          message: "Contact " + contact.name + " added !!!",
+          messageType: "success"
+        }
+        this.openSnackBar(data);
         return contact
       },
-      err => { console.log(err); return err }
+      err => {
+        console.log(err);
+        let data = {
+          message: "Contact " + contact.name + " couldn't be added. \n Error " + err.status + ": "+err.statusText,
+          messageType: "error"
+        }
+        this.openSnackBar(data);
+        return err
+      }
     );
   }
 
