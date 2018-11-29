@@ -7,7 +7,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <mat-select placeholder="Country" formControlName="countryId">
+    <mat-select placeholder="Country" formControlName="countryId" (ngModelChange)="onCountryChange()">
       <mat-option *ngFor="let country of countries" [value]="country.id">
         {{country.name}}
       </mat-option>

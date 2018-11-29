@@ -62,6 +62,14 @@ export class ContactFormComponent implements OnInit {
     );
   }
 
+  onCountryChange(){
+    let filteredCountries: Country[];
+        filteredCountries = this.countries.filter(country => this.contactForm.value.countryId == country.id);
+        if (filteredCountries.length > 0) {
+          this.telPrefix = filteredCountries[0].code;
+        }
+  }
+
   submitContact(): void {
 
     let contact = new Contact(

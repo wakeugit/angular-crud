@@ -1,4 +1,4 @@
-import { Country } from './../models/country';
+import { Country } from '../models/country';
 import { Pipe, PipeTransform } from '@angular/core';
 /*
  * Raise the country name
@@ -10,7 +10,7 @@ import { Pipe, PipeTransform } from '@angular/core';
  *   formats to: Germany
 */
 @Pipe({ name: 'countryName' })
-export class CountryPipe implements PipeTransform {
+export class CountryNamePipe implements PipeTransform {
   transform(countryId: number, countries: Country[]): string {
     let filteredCountries: Country[];
     filteredCountries = countries.filter(country => countryId == country.id);

@@ -1,4 +1,5 @@
-import { CountryPipe } from './utils/country.pipe';
+import { CountryNamePipe } from './utils/country-name.pipe';
+import { CountryCodePipe } from './utils/country-code.pipe';
 import { InMemoryDataService } from './services/InMemoryData/in-memory-data.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -32,7 +33,8 @@ import { MatSelectModule } from '@angular/material/select';
     ContactSearchComponent,
     ContactFormComponent,
     ContactModalComponent,
-    CountryPipe
+    CountryNamePipe,
+    CountryCodePipe,
   ],
   imports: [
     BrowserModule,

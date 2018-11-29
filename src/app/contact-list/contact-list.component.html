@@ -23,13 +23,13 @@
     <!-- Country Column -->
     <ng-container matColumnDef="country">
       <th mat-header-cell *matHeaderCellDef  mat-sort-header> Country </th>
-      <td mat-cell *matCellDef="let contact"> {{contact.countryId | countryName:countries}} </td>
+      <td mat-cell *matCellDef="let contact"> {{contact.countryId | countryName:countries }} </td>
     </ng-container>
 
     <!-- Phone Column -->
     <ng-container matColumnDef="phone">
       <th mat-header-cell *matHeaderCellDef  mat-sort-header> Phone </th>
-      <td mat-cell *matCellDef="let contact"> {{contact.phone}} </td>
+      <td mat-cell *matCellDef="let contact"> +{{contact.countryId | countryCode:countries }}{{contact.phone}} </td>
     </ng-container>
 
     <!-- Email Column -->
