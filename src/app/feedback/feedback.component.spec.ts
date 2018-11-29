@@ -1,6 +1,8 @@
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FeedbackComponent } from './feedback.component';
+import { MAT_SNACK_BAR_DATA } from '@angular/material';
 
 describe('FeedbackComponent', () => {
   let component: FeedbackComponent;
@@ -8,7 +10,16 @@ describe('FeedbackComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FeedbackComponent ]
+      imports:[MatSnackBarModule],
+      declarations: [ FeedbackComponent ],
+      providers: [
+        { provide: MAT_SNACK_BAR_DATA,
+          useValue: {
+            message: "success",
+            messageType: "success"
+          }
+      }
+      ]
     })
     .compileComponents();
   }));

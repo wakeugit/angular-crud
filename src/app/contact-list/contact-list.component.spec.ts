@@ -1,3 +1,5 @@
+import { CountryCodePipe } from './../utils/country-code.pipe';
+import { CountryNamePipe } from './../utils/country-name.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -36,7 +38,7 @@ describe('ContactListComponent', () => {
           InMemoryDataService, { dataEncapsulation: false }
         ),
       ],
-      declarations: [ContactListComponent, ContactSearchComponent]
+      declarations: [ContactListComponent, ContactSearchComponent, CountryNamePipe, CountryCodePipe]
     })
       .compileComponents();
   }));

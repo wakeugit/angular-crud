@@ -1,3 +1,6 @@
+import { FeedbackComponent } from './../feedback/feedback.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -25,14 +28,16 @@ describe('ContactFormComponent', () => {
         FormsModule,
         MatFormFieldModule,
         MatInputModule,
+        MatSelectModule,
         MatDatepickerModule,
         MatNativeDateModule,
+        MatSnackBarModule,
         HttpClientModule,
         HttpClientInMemoryWebApiModule.forRoot(
           InMemoryDataService, { dataEncapsulation: false }
         ),
       ],
-      declarations: [ ContactFormComponent ]
+      declarations: [ ContactFormComponent, FeedbackComponent ]
     })
     .compileComponents();
   }));

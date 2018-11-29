@@ -7,7 +7,7 @@ import { CONTACTS } from 'src/app/appConstants/appConstants';
 
 describe('ContactService', () => {
   let service: ContactService;
-  const contactsUrl = '/api/contacts';  // URL to web api
+  
   beforeEach(() => TestBed.configureTestingModule({
     imports: [
       HttpClientModule
@@ -49,6 +49,7 @@ describe('ContactService', () => {
     service = TestBed.get(ContactService);
     let contact = new Contact(
       "Wilfried",
+      1,
       1234556678,
       "wilfried@wakeu.de",
       new Date("1993-10-24")
@@ -64,6 +65,7 @@ describe('ContactService', () => {
     service = TestBed.get(ContactService);
     let contact = new Contact(
       "Wilfried",
+      1,
       1234556678,
       "wilfried@wakeu.de",
       new Date("1993-10-24")

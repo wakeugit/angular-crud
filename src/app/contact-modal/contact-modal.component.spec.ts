@@ -1,3 +1,5 @@
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ContactFormComponent } from './../contact-form/contact-form.component';
 import { InMemoryDataService } from './../services/InMemoryData/in-memory-data.service';
@@ -32,6 +34,8 @@ describe('ContactModalComponent', () => {
         MatDatepickerModule,
         MatNativeDateModule,
         MatInputModule,
+        MatSelectModule,
+        MatSnackBarModule,
         MatDialogModule,
         HttpClientModule,
         HttpClientInMemoryWebApiModule.forRoot(

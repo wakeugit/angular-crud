@@ -1,3 +1,4 @@
+import { MatSelectModule } from '@angular/material/select';
 import { InMemoryDataService } from './../services/InMemoryData/in-memory-data.service';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { HttpClientModule } from '@angular/common/http';
@@ -30,6 +31,7 @@ describe('ContactDetailComponent', () => {
         FormsModule,
         MatFormFieldModule,
         MatDatepickerModule,
+        MatSelectModule,
         HttpClientModule,
         HttpClientInMemoryWebApiModule.forRoot(
           InMemoryDataService, { dataEncapsulation: false }
