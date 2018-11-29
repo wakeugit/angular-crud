@@ -26,6 +26,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FeedbackComponent } from './feedback/feedback.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
     MatDialogModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatTooltipModule,
     HttpClientModule,
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
