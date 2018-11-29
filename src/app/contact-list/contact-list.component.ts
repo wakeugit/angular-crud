@@ -29,9 +29,7 @@ export class ContactListComponent implements OnInit {
   constructor(
     private _router: Router,
     private _contactService: ContactService,
-    public dialog: MatDialog) {
-      this.dataSource = new MatTableDataSource(this.contacts);
-  }
+    public dialog: MatDialog) {  }
 
   ngOnInit() {
     //this.getContacts();
@@ -41,17 +39,10 @@ export class ContactListComponent implements OnInit {
         this.contacts = data;
         // Assign the data to the data source for the table to render
         this.dataSource = new MatTableDataSource(this.contacts);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       }
     )
-  }
-
-  /**
-   * Set the paginator and sort after the view init since this component will
-   * be able to query its view for the initialized paginator and sort.
-   */
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
   }
 
   applyFilter(filterValue: string) {
@@ -61,7 +52,7 @@ export class ContactListComponent implements OnInit {
   }
 
   onClick(contact: Contact): void {
-    console.log(contact);
+    
   }
 
   getContacts(): void {
@@ -72,6 +63,15 @@ export class ContactListComponent implements OnInit {
 
   updateList(contacts$: Observable<Contact[]>) {
     this.contacts$ = contacts$;
+    this.contacts$.subscribe(
+      data => {
+        this.contacts = data;
+        // Assign the data to the data source for the table to render
+        this.dataSource = new MatTableDataSource(this.contacts);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    )
   }
 
   redirect(contact: Contact): void {
@@ -85,7 +85,6 @@ export class ContactListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.ngOnInit();
     });
   }

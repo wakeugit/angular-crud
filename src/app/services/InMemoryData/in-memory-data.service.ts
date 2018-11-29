@@ -7,12 +7,9 @@ import { InMemoryDbService } from 'angular-in-memory-web-api';
 })
 export class InMemoryDataService implements InMemoryDbService {
 
-  constructor(){
-    console.log("InMemoryDataService");
-  }
+  constructor(){ }
 
   createDb() {
-    console.log("createDb");
     const contacts = [
       {
         id: 1,

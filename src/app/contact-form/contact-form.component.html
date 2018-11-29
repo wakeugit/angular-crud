@@ -32,10 +32,10 @@
 
   <div class="button-row">
     <div *ngIf="mode == 'create'">
-      <button mat-raised-button color="primary" (click)="submitContact()">Create</button>
+      <button mat-raised-button color="primary" [disabled]="contactForm.invalid" (click)="submitContact()">Create</button>
     </div>
     <div *ngIf="mode !== 'create'">
-      <button mat-raised-button color="accent" (click)="updateContact()">Update</button>
+      <button mat-raised-button color="accent" [disabled]="contactForm.invalid" (click)="updateContact()">Update</button>
       <button mat-raised-button color="warn" (click)="deleteContact(contact.id)">Delete</button>
       <button mat-raised-button routerLink="/list">Back to List</button>
     </div>

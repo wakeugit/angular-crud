@@ -2,7 +2,7 @@
 
 <div class="example-header">
     <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter at Frontend ...">
     </mat-form-field>
   </div>
 
@@ -11,8 +11,8 @@
 </div>
 
 <div>
-  <table mat-table [dataSource]="contacts$ | async" class="mat-elevation-z8">
-  <!--<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>-->
+  <!--<table mat-table [dataSource]="contacts$ | async" class="mat-elevation-z8">-->
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
 
     <!-- Name Column -->
     <ng-container matColumnDef="name">
